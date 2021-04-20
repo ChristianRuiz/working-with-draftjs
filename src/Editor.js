@@ -50,6 +50,25 @@ const MyEditor = () => {
     setEditorState(newEditorState);
   };
 
+  const handleH1 = () => {
+    const contentState = editorState.getCurrentContent();
+    const selectionState = editorState.getSelection();
+    const blockKey = selectionState.getStartKey();
+
+    const blocks = contentState.getBlocksAsArray().map(block => {
+      if (block.getKey() === blockKey) {
+        return block.merge({
+          type: 'header-one'
+        });
+      }
+      return block;
+    });
+    const newContentState = contentState.merge({ blockMap: BlockMapBuilder.createFromArray(blocks) });
+    const newEditorState = EditorState.push(editorState, newContentState, 'change-block-type');
+
+    setEditorState(newEditorState);
+  };
+
   const handleKeyCommand = (command, newEditorState) => {
     const modifiedState = RichUtils.handleKeyCommand(newEditorState, command);
 
@@ -76,6 +95,7 @@ const MyEditor = () => {
         <button onClick={handleSave}>Save</button>
         <button onClick={handleLoad}>Load</button>
         <button onClick={handleAddBlock}>Add block</button>
+        <button onClick={handleH1}>h1</button>
       </div>
     </>
   );
