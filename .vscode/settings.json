@@ -1,0 +1,17 @@
+{
+	"[json]": {
+		"editor.formatOnSave": true
+	},
+	"[jsonc]": {
+		"editor.formatOnSave": true
+	},
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true
+	},
+	"files.exclude": {
+		"**/.DS_Store": true,
+		"**/.git": true,
+		"**/.svn": true,
+		"**/build": true
+	}
+}
