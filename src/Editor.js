@@ -51,20 +51,7 @@ const MyEditor = () => {
   };
 
   const handleH1 = () => {
-    const contentState = editorState.getCurrentContent();
-    const selectionState = editorState.getSelection();
-    const blockKey = selectionState.getStartKey();
-
-    const blocks = contentState.getBlocksAsArray().map(block => {
-      if (block.getKey() === blockKey) {
-        return block.merge({
-          type: 'header-one'
-        });
-      }
-      return block;
-    });
-    const newContentState = contentState.merge({ blockMap: BlockMapBuilder.createFromArray(blocks) });
-    const newEditorState = EditorState.push(editorState, newContentState, 'change-block-type');
+    const newEditorState = RichUtils.toggleBlockType(editorState, 'header-one');
 
     setEditorState(newEditorState);
   };
