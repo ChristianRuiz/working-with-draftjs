@@ -1,10 +1,12 @@
 import React, { useState, useRef } from 'react';
-import { Editor, EditorState } from 'draft-js';
+import { Editor, EditorState, ContentState, convertToRaw } from 'draft-js';
 import 'draft-js/dist/Draft.css';
 import './Editor.css';
 
 const MyEditor = () => {
-  const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
+  const [editorState, setEditorState] = useState(() =>
+    EditorState.createWithContent(ContentState.createFromText('Hello world!'))
+  );
   const [savedEditorState, setSavedEditorState] = useState();
 
   const editor = useRef(null);
@@ -18,6 +20,7 @@ const MyEditor = () => {
 
   const handleSave = () => {
     setSavedEditorState(editorState);
+    console.log('content', convertToRaw(editorState.getCurrentContent()));
   };
 
   const handleLoad = () => {
