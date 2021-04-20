@@ -1,16 +1,11 @@
 import React, { useState, useRef } from 'react';
-import {
-  Editor,
-  EditorState,
-  ContentState,
-  convertToRaw,
-  RichUtils,
-  ContentBlock,
-  genKey,
-  BlockMapBuilder
-} from 'draft-js';
+import { EditorState, ContentState, convertToRaw, RichUtils, ContentBlock, genKey, BlockMapBuilder } from 'draft-js';
+import Editor from '@draft-js-plugins/editor';
+import createLinkifyPlugin from '@draft-js-plugins/linkify';
 import 'draft-js/dist/Draft.css';
 import './Editor.css';
+
+const linkifyPlugin = createLinkifyPlugin();
 
 const MyEditor = () => {
   const [editorState, setEditorState] = useState(() =>
@@ -76,6 +71,7 @@ const MyEditor = () => {
           onChange={handleChange}
           handleKeyCommand={handleKeyCommand}
           placeholder="Write something!"
+          plugins={[linkifyPlugin]}
         />
       </div>
       <div>
