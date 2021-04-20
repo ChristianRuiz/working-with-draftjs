@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Editor, EditorState, ContentState, convertToRaw } from 'draft-js';
+import { Editor, EditorState, ContentState, convertToRaw, RichUtils } from 'draft-js';
 import 'draft-js/dist/Draft.css';
 import './Editor.css';
 
@@ -27,10 +27,27 @@ const MyEditor = () => {
     setEditorState(savedEditorState);
   };
 
+  const handleKeyCommand = (command, newEditorState) => {
+    const modifiedState = RichUtils.handleKeyCommand(newEditorState, command);
+
+    if (modifiedState) {
+      setEditorState(modifiedState);
+      return 'handled';
+    }
+
+    return 'not-handled';
+  };
+
   return (
     <>
       <div className="editor" onClick={focusEditor}>
-        <Editor ref={editor} editorState={editorState} onChange={handleChange} placeholder="Write something!" />
+        <Editor
+          ref={editor}
+          editorState={editorState}
+          onChange={handleChange}
+          handleKeyCommand={handleKeyCommand}
+          placeholder="Write something!"
+        />
       </div>
       <div>
         <button onClick={handleSave}>Save</button>
