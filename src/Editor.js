@@ -11,9 +11,13 @@ const MyEditor = () => {
     editor.current.focus();
   };
 
+  const handleChange = newEditorState => {
+    setEditorState(newEditorState);
+  };
+
   return (
     <div className="editor" onClick={focusEditor}>
-      <Editor ref={editor} editorState={editorState} onChange={setEditorState} placeholder="Write something!" />
+      <Editor ref={editor} editorState={editorState} onChange={handleChange} placeholder="Write something!" />
     </div>
   );
 };
